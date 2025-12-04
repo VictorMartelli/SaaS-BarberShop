@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Aparatus: Modern SaaS for Barbershops
 
-## Getting Started
+Sistema Open Source de agendamento e gestão de clientes feito sob medida para barbearias modernas.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 💻 Sobre o Projeto
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O **Aparatus** é uma solução de software como serviço (SaaS) de código aberto desenvolvida para otimizar a gestão diária de barbearias e salões de beleza. Nosso objetivo é modernizar o processo, oferecendo ferramentas intuitivas para agendamento, gerenciamento de clientes e administração de serviços.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Desenvolvido com as tecnologias mais recentes do mercado, o Aparatus oferece uma experiência de usuário rápida e confiável.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### ✨ Principais Funcionalidades
 
-## Learn More
+* **Agendamento Inteligente:** Permite que clientes agendem seus horários online com facilidade, verificando a disponibilidade em tempo real dos barbeiros/profissionais.
+* **Gestão de Clientes (CRM):** Histórico de serviços, preferências e dados de contato de cada cliente.
+* **Dashboard Administrativo:** Visão geral da performance, receitas e agendamentos futuros para a gerência.
+* **Catálogo de Serviços:** Configuração fácil de serviços, preços e duração.
 
-To learn more about Next.js, take a look at the following resources:
+---
+## ⚠️ Status do Projeto e Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O Aparatus está em **desenvolvimento 
+ativo**. Novas funcionalidades e melhorias são adicionadas regularmente.
+O projeto será hospedado e distribuído 
+utilizando a plataforma **Vercel**, 
+aproveitando ao máximo o desempenho e a 
+infraestrutura otimizada para aplicações 
+Next.js.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **Fase Atual:** Novas funcionalidades e melhorias
+são adicionadas regularmente.
+* **Deploy Futuro:** Vercel (https://vercel.com/)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Tecnologias Utilizadas
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Este projeto foi construído utilizando um stack de tecnologias moderno e robusto:
+
+**Frontend & Framework:**
+* [**Next.js**](https://nextjs.org/) (com App Router)
+* **React**
+* **TypeScript**
+
+**Estilização & Componentes:**
+* **Tailwind CSS**
+* **Shadcn/ui**
+
+**Backend & Banco de Dados:**
+* **Prisma** (ORM para gerenciamento do banco de dados)
+* **PostgreSQL**
+
+**Pacotes Adicionais:**
+* **ESLint & Prettier** (Para padronização de código)
+
+---
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma *Issue* ou enviar um *Pull Request*.
+
+1.  Faça um fork do projeto.
+2.  Crie uma branch para sua feature (`git checkout -b feature/minha-feature`).
+3.  Commit suas mudanças (`git commit -m 'feat: Adiciona nova funcionalidade'`).
+4.  Push para a branch (`git push origin feature/minha-feature`).
+5.  Abra um Pull Request.
+
+---
+
+## 👤 Autor
+
+* **Victor Martelli**
+    * LinkedIn: http://www.linkedin.com/in/victormartelli
