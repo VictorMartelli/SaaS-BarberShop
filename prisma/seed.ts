@@ -59,42 +59,42 @@ async function seedDatabase() {
       {
         name: "Corte de Cabelo",
         description: "Estilo personalizado com as últimas tendências.",
-        priceInCents: 600,
+        priceInCents: 60,
         imageUrl:
           "https://utfs.io/f/0ddfbd26-a424-43a0-aaf3-c3f1dc6be6d1-1kgxo7.png",
       },
       {
         name: "Barba",
         description: "Modelagem completa para destacar sua masculinidade.",
-        priceInCents: 400,
+        priceInCents: 40,
         imageUrl:
           "https://utfs.io/f/e6bdffb6-24a9-455b-aba3-903c2c2b5bde-1jo6tu.png",
       },
       {
         name: "Pézinho",
         description: "Acabamento perfeito para um visual renovado.",
-        priceInCents: 350,
+        priceInCents: 35,
         imageUrl:
           "https://utfs.io/f/8a457cda-f768-411d-a737-cdb23ca6b9b5-b3pegf.png",
       },
       {
         name: "Sobrancelha",
         description: "Expressão acentuada com modelagem precisa.",
-        priceInCents: 200,
+        priceInCents: 20,
         imageUrl:
           "https://utfs.io/f/2118f76e-89e4-43e6-87c9-8f157500c333-b0ps0b.png",
       },
       {
         name: "Massagem",
         description: "Relaxe com uma massagem revigorante.",
-        priceInCents: 500,
+        priceInCents: 50,
         imageUrl:
           "https://utfs.io/f/c4919193-a675-4c47-9f21-ebd86d1c8e6a-4oen2a.png",
       },
       {
         name: "Hidratação",
         description: "Hidratação profunda para cabelo e barba.",
-        priceInCents: 250,
+        priceInCents: 25,
         imageUrl:
           "https://utfs.io/f/8a457cda-f768-411d-a737-cdb23ca6b9b5-b3pegf.png",
       },

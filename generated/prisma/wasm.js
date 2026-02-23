@@ -26,7 +26,7 @@ const {
   Public,
   getRuntime,
   createParam,
-} = require('./runtime/wasm-compiler-edge.js')
+} = require('./runtime/wasm-engine-edge.js')
 
 
 const Prisma = {}
@@ -156,7 +156,7 @@ const config = {
       "fromEnvVar": null
     },
     "config": {
-      "engineType": "client"
+      "engineType": "library"
     },
     "binaryTargets": [
       {
@@ -170,7 +170,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -189,23 +189,23 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider   = \"prisma-client-js\"\n  output     = \"../generated/prisma\"\n  engineType = \"client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Barbershop {\n  id          String              @id @default(uuid())\n  name        String\n  address     String\n  description String\n  imageUrl    String\n  phones      String[]\n  services    BarbershopService[]\n  bookings    Booking[]\n}\n\nmodel BarbershopService {\n  id           String     @id @default(uuid())\n  name         String\n  description  String\n  imageUrl     String\n  barbershopId String\n  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])\n  priceInCents Int\n  bookings     Booking[]\n}\n\nmodel Booking {\n  id                  String             @id @default(uuid())\n  serviceId           String\n  barbershopId        String\n  date                DateTime           @db.Timestamptz\n  cancelled           Boolean?           @default(false)\n  cancelledAt         DateTime?          @db.Timestamptz\n  Barbershop          Barbershop         @relation(fields: [barbershopId], references: [id])\n  BarbershopService   BarbershopService? @relation(fields: [barbershopServiceId], references: [id])\n  barbershopServiceId String?\n}\n\n// model User {\n//   id            String    @id\n//   name          String\n//   email         String\n//   emailVerified Boolean   @default(false)\n//   image         String?\n//   createdAt     DateTime  @default(now())\n//   updatedAt     DateTime  @default(now()) @updatedAt\n//   sessions      Session[]\n//   accounts      Account[]\n//   bookings      Booking[]\n\n//   @@unique([email])\n//   @@map(\"user\")\n// }\n\n// model Session {\n//   id        String   @id\n//   expiresAt DateTime\n//   token     String\n//   createdAt DateTime @default(now())\n//   updatedAt DateTime @updatedAt\n//   ipAddress String?\n//   userAgent String?\n//   userId    String\n//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n//   @@unique([token])\n//   @@map(\"session\")\n// }\n\n// model Account {\n//   id                    String    @id\n//   accountId             String\n//   providerId            String\n//   userId                String\n//   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n//   accessToken           String?\n//   refreshToken          String?\n//   idToken               String?\n//   accessTokenExpiresAt  DateTime?\n//   refreshTokenExpiresAt DateTime?\n//   scope                 String?\n//   password              String?\n//   createdAt             DateTime  @default(now())\n//   updatedAt             DateTime  @updatedAt\n\n//   @@map(\"account\")\n// }\n\n// model Verification {\n//   id         String   @id\n//   identifier String\n//   value      String\n//   expiresAt  DateTime\n//   createdAt  DateTime @default(now())\n//   updatedAt  DateTime @default(now()) @updatedAt\n\n//   @@map(\"verification\")\n// }\n",
-  "inlineSchemaHash": "b164001c07a3a453dce498732ebd6eec8314bf761aceea34a87a78c78d9fdc84",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Barbershop {\n  id          String              @id @default(uuid())\n  name        String\n  address     String\n  description String\n  imageUrl    String\n  phones      String[]\n  services    BarbershopService[]\n  bookings    Booking[]\n}\n\nmodel BarbershopService {\n  id           String     @id @default(uuid())\n  name         String\n  description  String\n  imageUrl     String\n  barbershopId String\n  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])\n  priceInCents Int\n  bookings     Booking[]\n}\n\nmodel Booking {\n  id                  String             @id @default(uuid())\n  serviceId           String\n  barbershopId        String\n  date                DateTime           @db.Timestamptz\n  cancelled           Boolean?           @default(false)\n  cancelledAt         DateTime?          @db.Timestamptz\n  Barbershop          Barbershop         @relation(fields: [barbershopId], references: [id])\n  BarbershopService   BarbershopService? @relation(fields: [barbershopServiceId], references: [id])\n  barbershopServiceId String?\n}\n\n// model User {\n//   id            String    @id\n//   name          String\n//   email         String\n//   emailVerified Boolean   @default(false)\n//   image         String?\n//   createdAt     DateTime  @default(now())\n//   updatedAt     DateTime  @default(now()) @updatedAt\n//   sessions      Session[]\n//   accounts      Account[]\n//   bookings      Booking[]\n\n//   @@unique([email])\n//   @@map(\"user\")\n// }\n\n// model Session {\n//   id        String   @id\n//   expiresAt DateTime\n//   token     String\n//   createdAt DateTime @default(now())\n//   updatedAt DateTime @updatedAt\n//   ipAddress String?\n//   userAgent String?\n//   userId    String\n//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n//   @@unique([token])\n//   @@map(\"session\")\n// }\n\n// model Account {\n//   id                    String    @id\n//   accountId             String\n//   providerId            String\n//   userId                String\n//   user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n//   accessToken           String?\n//   refreshToken          String?\n//   idToken               String?\n//   accessTokenExpiresAt  DateTime?\n//   refreshTokenExpiresAt DateTime?\n//   scope                 String?\n//   password              String?\n//   createdAt             DateTime  @default(now())\n//   updatedAt             DateTime  @updatedAt\n\n//   @@map(\"account\")\n// }\n\n// model Verification {\n//   id         String   @id\n//   identifier String\n//   value      String\n//   expiresAt  DateTime\n//   createdAt  DateTime @default(now())\n//   updatedAt  DateTime @default(now()) @updatedAt\n\n//   @@map(\"verification\")\n// }\n",
+  "inlineSchemaHash": "73eb8eed36de47b3ae860de57205e50fb2626ee7b9bf15d2c82492f481963d8c",
   "copyEngine": true
 }
 config.dirname = '/'
 
 config.runtimeDataModel = JSON.parse("{\"models\":{\"Barbershop\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"address\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phones\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"services\",\"kind\":\"object\",\"type\":\"BarbershopService\",\"relationName\":\"BarbershopToBarbershopService\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BarbershopToBooking\"}],\"dbName\":null},\"BarbershopService\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"imageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"barbershopId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"barbershop\",\"kind\":\"object\",\"type\":\"Barbershop\",\"relationName\":\"BarbershopToBarbershopService\"},{\"name\":\"priceInCents\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"bookings\",\"kind\":\"object\",\"type\":\"Booking\",\"relationName\":\"BarbershopServiceToBooking\"}],\"dbName\":null},\"Booking\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"serviceId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"barbershopId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"cancelled\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"cancelledAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"Barbershop\",\"kind\":\"object\",\"type\":\"Barbershop\",\"relationName\":\"BarbershopToBooking\"},{\"name\":\"BarbershopService\",\"kind\":\"object\",\"type\":\"BarbershopService\",\"relationName\":\"BarbershopServiceToBooking\"},{\"name\":\"barbershopServiceId\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
-config.engineWasm = undefined
-config.compilerWasm = {
-  getRuntime: async () => require('./query_compiler_bg.js'),
-  getQueryCompilerWasmModule: async () => {
-    const loader = (await import('#wasm-compiler-loader')).default
-    const compiler = (await loader).default
-    return compiler
+config.engineWasm = {
+  getRuntime: async () => require('./query_engine_bg.js'),
+  getQueryEngineWasmModule: async () => {
+    const loader = (await import('#wasm-engine-loader')).default
+    const engine = (await loader).default
+    return engine
   }
 }
+config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {

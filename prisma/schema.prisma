@@ -5,9 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider   = "prisma-client-js"
-  output     = "../generated/prisma"
-  engineType = "client"
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -23,7 +22,7 @@ model Barbershop {
   imageUrl    String
   phones      String[]
   services    BarbershopService[]
-  bookings    Booking[]
+  Booking     Booking[]
 }
 
 model BarbershopService {
@@ -34,7 +33,7 @@ model BarbershopService {
   barbershopId String
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
   priceInCents Int
-  bookings     Booking[]
+  Booking      Booking[]
 }
 
 model Booking {
