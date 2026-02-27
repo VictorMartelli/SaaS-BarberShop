@@ -110,11 +110,7 @@ const BarbershopPage = async (props: PageProps<"/barbershops/[id]">) => {
           </div>
           <div className="flex w-full flex-col gap-3">
             {barbershop.services.map((service) => (
-              <ServiceItem
-                key={service.id}
-                service={service}
-                barbershop={{ id: barbershop.id, name: barbershop.name }}
-              />
+              <ServiceItem key={service.id} service={service} />
             ))}
           </div>
         </div>
