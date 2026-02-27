@@ -5,13 +5,11 @@ import { Card } from "./ui/card";
 
 interface ServiceItemProps {
   service: BarbershopService;
-  barbershop?: {
-    id: string;
-    name: string;
-  };
+  // barbershop info is no longer displayed in the card per Figma
+  // if needed elsewhere it can be fetched separately
 }
 
-export function ServiceItem({ service, barbershop }: ServiceItemProps) {
+export function ServiceItem({ service }: ServiceItemProps) {
   const priceInReais = (service.priceInCents / 100).toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -34,11 +32,6 @@ export function ServiceItem({ service, barbershop }: ServiceItemProps) {
             {service.name}
           </p>
           <p className="text-muted-foreground text-sm">{service.description}</p>
-          {barbershop && (
-            <p className="text-muted-foreground text-xs">
-              {`Barbearia: ${barbershop.name}`}
-            </p>
-          )}
         </div>
 
         <div className="flex items-center justify-between">
