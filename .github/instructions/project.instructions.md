@@ -19,3 +19,4 @@ Tecnologias utilizadas:
 - Devido às restrições do WebGL, **SEMPRE** use a ferramenta do MCP para extrair as propriedades JSON (CSS, spacing, colors) diretamente da árvore de nós do arquivo Figma.
 - **SEMPRE** use os componentes app_components\footer.tsx e app_components\header.tsx na hora de criar headers e footers. **NUNCA** crie um header ou footer do zero.
 - Evite ao máximo duplicidade de código. Ao repetir um código, crie um componente e/ou funções utilitárias para reaproveitar o código.
+- Todo scroll horizontal **DEVE SEMPRE** esconder a barra de scroll usando className="[&::-webkit-scrollbar]:hidden"
