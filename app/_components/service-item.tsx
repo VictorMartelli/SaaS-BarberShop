@@ -88,7 +88,9 @@ export function ServiceItem({ service }: ServiceItemProps) {
     });
 
     if (result.serverError || result.validationErrors) {
-      toast.error(result.validationErrors?._errors?.[0] ?? "Erro ao criar agendamento.");
+      toast.error(
+        result.validationErrors?._errors?.[0] ?? "Erro ao criar agendamento.",
+      );
       return;
     }
 
@@ -152,9 +154,9 @@ export function ServiceItem({ service }: ServiceItemProps) {
 
           {selectedDate && (
             <>
-              <Separator />
+              <Separator className="mt-6 mb-3" />
 
-              <div className="flex gap-4 overflow-x-auto px-5 py-4 [&::-webkit-scrollbar]:hidden">
+              <div className="flex gap-4 overflow-x-auto px-5 py-5 whitespace-nowrap [&::-webkit-scrollbar]:hidden">
                 {TIME_SLOTS.map((time) => (
                   <Button
                     key={time}
@@ -167,7 +169,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
                 ))}
               </div>
 
-              <Separator />
+              <Separator className="mt-3 mb-6" />
 
               <div className="flex flex-col gap-3 px-5">
                 <div className="border-border bg-card flex w-full flex-col gap-3 rounded-[10px] border border-solid p-3">
