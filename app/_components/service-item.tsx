@@ -17,6 +17,8 @@ import { ptBR } from "date-fns/locale";
 import { useAction } from "next-safe-action/hooks";
 import { createBooking } from "../_actions/create-booking";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
+import { getDateAvailabelTimeSlots } from "../_actions/get-date-availabel-time-slots";
 
 interface ServiceItemProps {
   service: BarbershopService & {
@@ -24,7 +26,7 @@ interface ServiceItemProps {
   };
 }
 
-const TIME_SLOTS = [
+/*const TIME_SLOTS = [
   "09:00",
   "09:30",
   "10:00",
@@ -44,13 +46,26 @@ const TIME_SLOTS = [
   "17:00",
   "17:30",
   "18:00",
-];
+];*/
 
 export function ServiceItem({ service }: ServiceItemProps) {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState<string | undefined>();
   const { executeAsync, isPending } = useAction(createBooking);
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
+  const { data: availabelTimeSlots } = useQuery({
+    queryKey: ["date-availabel-time-slots", service.barbershopId, selectedDate],
+    queryFn: () =>
+      getDateAvailabelTimeSlots({
+        barbershopId: service.barbershopId,
+        date: selectedDate!,
+      }),
+    enabled: !!selectedDate,
+  });
+
+  const handleDateSelect = (date: Date | undefined) => {
+    setSelectedDate(date);
+  };
 
   const priceInReais = (service.priceInCents / 100).toLocaleString("pt-BR", {
     style: "currency",
@@ -145,7 +160,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
             <Calendar
               mode="single"
               selected={selectedDate}
-              onSelect={setSelectedDate}
+              onSelect={handleDateSelect}
               disabled={{ before: today }}
               className="w-full p-0"
               locale={ptBR}
@@ -157,7 +172,7 @@ export function ServiceItem({ service }: ServiceItemProps) {
               <Separator className="mt-6 mb-3" />
 
               <div className="flex gap-4 overflow-x-auto px-5 py-5 whitespace-nowrap [&::-webkit-scrollbar]:hidden">
-                {TIME_SLOTS.map((time) => (
+                {availabelTimeSlots?.data?.map((time) => (
                   <Button
                     key={time}
                     variant={selectedTime === time ? "default" : "outline"}
