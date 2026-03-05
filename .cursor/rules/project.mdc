@@ -24,3 +24,10 @@ Tecnologias utilizadas:
 - **SEMPRE** use os componentes app_components\footer.tsx e app_components\header.tsx na hora de criar headers e footers. **NUNCA** crie um header ou footer do zero.
 - Evite ao máximo duplicidade de código. Ao repetir um código, crie um componente e/ou funções utilitárias para reaproveitar o código.
 - Todo scroll horizontal **DEVE SEMPRE** esconder a barra de scroll usando className="[&::-webkit-scrollbar]:hidden"
+
+## Server Actions
+
+- **SEMPRE** use a biblioteca "next-safe-action" para criar Server Actions.
+- **SEMPRE** use o hook "useAction" da biblioteca "next-safe-action" para chamar uma Server Action.
+- **SEMPRE** use a Server Action @app_actions\create-booking.ts como base para criar as suas.
+- **SEMPRE** faça validações de autorização e autenticação em uma Server Action conforme o usuário.
