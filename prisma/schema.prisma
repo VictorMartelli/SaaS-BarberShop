@@ -37,17 +37,16 @@ model BarbershopService {
 }
 
 model Booking {
-  id                  String             @id @default(uuid())
-  serviceId           String
-  barbershopId        String
-  userId              String
-  user                User               @relation(fields: [userId], references: [id])
-  date                DateTime           @db.Timestamptz
-  cancelled           Boolean?           @default(false)
-  cancelledAt         DateTime?          @db.Timestamptz
-  Barbershop          Barbershop         @relation(fields: [barbershopId], references: [id])
-  BarbershopService   BarbershopService? @relation(fields: [barbershopServiceId], references: [id])
-  barbershopServiceId String?
+  id           String            @id @default(uuid())
+  serviceId    String
+  service      BarbershopService @relation(fields: [serviceId], references: [id])
+  barbershopId String
+  barbershop   Barbershop        @relation(fields: [barbershopId], references: [id])
+  userId       String
+  user         User              @relation(fields: [userId], references: [id])
+  date         DateTime          @db.Timestamptz
+  cancelled    Boolean?          @default(false)
+  cancelledAt  DateTime?         @db.Timestamptz
 }
 
 model User {
