@@ -57,10 +57,14 @@ const BookingsPage = async () => {
                 {confirmedBookings.map((booking) => (
                   <BookingItem
                     key={booking.id}
-                    {...booking}
+                    id={booking.id}
+                    date={booking.date}
                     serviceName={booking.service.name}
                     barbershopName={booking.barbershop.name}
                     barbershopImageUrl={booking.barbershop.imageUrl}
+                    priceInCents={booking.service.priceInCents}
+                    address={booking.barbershop.address}
+                    phones={booking.barbershop.phones}
                     status="confirmed"
                   />
                 ))}
@@ -75,10 +79,14 @@ const BookingsPage = async () => {
                 {finishedBookings.map((booking) => (
                   <BookingItem
                     key={booking.id}
-                    {...booking}
+                    id={booking.id}
+                    date={booking.date}
                     serviceName={booking.service.name}
                     barbershopName={booking.barbershop.name}
                     barbershopImageUrl={booking.barbershop.imageUrl}
+                    priceInCents={booking.service.priceInCents}
+                    address={booking.barbershop.address}
+                    phones={booking.barbershop.phones}
                     status="finished"
                   />
                 ))}
