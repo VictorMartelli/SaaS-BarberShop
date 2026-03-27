@@ -4,6 +4,17 @@ import { Badge } from "./ui/badge";
 import { Card } from "./ui/card";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+import {
   Sheet,
   SheetClose,
   SheetContent,
@@ -45,17 +56,23 @@ const BookingItem = ({
   phones,
 }: BookingItemProps) => {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [isCancelDialogOpen, setIsCancelDialogOpen] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
 
   const handleCancelBooking = async () => {
-    if (!id) return;
+    if (!id || isCancelling) return;
 
     try {
+      setIsCancelling(true);
       await cancelBooking(id);
       toast.success("Reserva cancelada com sucesso!");
+      setIsCancelDialogOpen(false);
       setIsSheetOpen(false);
     } catch (error) {
       console.error(error);
       toast.error("Ocorreu um erro ao cancelar a reserva.");
+    } finally {
+      setIsCancelling(false);
     }
   };
 
@@ -108,7 +125,7 @@ const BookingItem = ({
               fill
               className="rounded-lg object-cover"
             />
-            <div className="relative flex w-full flex-row items-center gap-3 rounded-lg bg-background p-3">
+            <div className="bg-background relative flex w-full flex-row items-center gap-3 rounded-lg p-3">
               <Avatar className="h-12 w-12">
                 <AvatarImage src={barbershopImageUrl} />
               </Avatar>
@@ -124,8 +141,8 @@ const BookingItem = ({
           <Badge
             className={
               status === "confirmed"
-                ? "w-fit bg-primary/10 text-primary uppercase"
-                : "w-fit bg-muted text-muted-foreground uppercase"
+                ? "bg-primary/10 text-primary w-fit uppercase"
+                : "bg-muted text-muted-foreground w-fit uppercase"
             }
           >
             {status === "confirmed" ? "Confirmado" : "Finalizado"}
@@ -142,15 +159,15 @@ const BookingItem = ({
                   }).format(priceInCents / 100)}
               </p>
             </div>
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div className="text-muted-foreground flex items-center justify-between text-sm">
               <p>Data</p>
               <p>{format(date, "dd 'de' MMMM", { locale: ptBR })}</p>
             </div>
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div className="text-muted-foreground flex items-center justify-between text-sm">
               <p>Horário</p>
               <p>{format(date, "HH:mm")}</p>
             </div>
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <div className="text-muted-foreground flex items-center justify-between text-sm">
               <p>Barbearia</p>
               <p>{barbershopName}</p>
             </div>
@@ -172,13 +189,37 @@ const BookingItem = ({
             </Button>
           </SheetClose>
           {status === "confirmed" && (
-            <Button
-              variant="destructive"
-              className="flex-1 rounded-full"
-              onClick={handleCancelBooking}
+            <AlertDialog
+              open={isCancelDialogOpen}
+              onOpenChange={setIsCancelDialogOpen}
             >
-              Cancelar Reserva
-            </Button>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive" className="flex-1 rounded-full">
+                  Cancelar Reserva
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Cancelar reserva?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Essa ação não pode ser desfeita. Confirme para cancelar
+                    sua reserva.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel disabled={isCancelling}>
+                    Voltar
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    variant="destructive"
+                    disabled={isCancelling}
+                    onClick={handleCancelBooking}
+                  >
+                    {isCancelling ? "Cancelando..." : "Confirmar cancelamento"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           )}
         </SheetFooter>
       </SheetContent>
